@@ -37,21 +37,19 @@ const Links = () => {
                 {links.map((link) => (
                     <NavLink item={link} key={link.title} />
                 ))}
-                {session ? (
+                {session && (
                     <>
                         {isAdmin && <NavLink item={{ title: 'Admin', path: '/admin' }} />}
                         <button className={styles.logout}>Logout</button>
                     </>
-                ) : (
-                    <NavLink item={{ title: 'login', path: '/login' }} />
                 )}
             </div>
-            <button
-                className={styles.menuButtons}
-                onClick={() => setOpen((prev) => !prev)}
-            >
-                {' '}
-                Menu
+            <button className={styles.menuButtons} onClick={toggleMenu}>
+                {open ? (
+                    <span style={{ fontSize: '25px' }}>&#x2715;</span> // Render "X" icon when menu is open
+                ) : (
+                    <span style={{ fontSize: '25px' }}>&#9776;</span> // Render hamburger icon when menu is closed
+                )}
             </button>
             {open && (
                 <div className={styles.mobileLinks}>
