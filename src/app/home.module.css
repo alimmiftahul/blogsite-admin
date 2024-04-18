@@ -1,0 +1,84 @@
+.container {
+    display: flex;
+    margin-top: 60px;
+}
+.textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.title {
+    font-size: 90px;
+    font-weight: 600;
+}
+
+.description {
+    font-size: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.button {
+    border: none;
+    min-width: 120px;
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.button:first-child {
+    background-color: var(--btn);
+    color: var(--text-);
+}
+
+.brands {
+    width: 500px;
+    height: 50px;
+    position: relative;
+    filter: grayscale(1);
+}
+
+.brandImg {
+    width: 500px;
+    height: 10px;
+}
+
+.imageContainer {
+    flex: 1;
+    position: relative;
+    height: 480px;
+}
+
+.heroImg {
+    width: 90%;
+    height: 500px;
+    object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 64px;
+        text-align: center;
+    }
+    .brands {
+        width: 100%;
+    }
+    .buttons {
+        justify-content: center;
+    }
+    .description {
+        text-align: center;
+    }
+}
