@@ -1,23 +1,22 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import styles from './contact.module.css';
 import Image from 'next/image';
 
+const HydrationNoSSR = dynamic(() => import('@/components/hydrationTest'), {
+    ssr: false,
+});
+
 const page = () => {
-    const [isSclient, setClient] = useState(false);
-    useEffect(() => {
-        setClient(true);
-    });
-    const b = Math.random();
-    console.log('it works');
     return (
         <div className={styles.container}>
             <div className={styles.imgContainer}>
                 <Image src="/contact.png" alt="" fill className={styles.img} />
             </div>
             <div className={styles.formContainer}>
-                {isSclient && b}
+                <HydrationNoSSR />
                 <form action="" className={styles.form}>
                     <input type="text" placeholder="Name and surname" />
                     <input type="text" placeholder="Email Address" />
@@ -29,12 +28,7 @@ const page = () => {
                         rows="10"
                         placeholder="message"
                     ></textarea>
-                    <button
-                        className={styles.btn}
-                        onClick={() => console.log('object send')}
-                    >
-                        Send
-                    </button>
+                    <button className={styles.btn}>Send</button>
                 </form>
             </div>
         </div>

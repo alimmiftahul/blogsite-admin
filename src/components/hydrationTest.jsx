@@ -1,7 +1,9 @@
 'use client';
 
 const HydrationTest = () => {
-    return <div> Hydration Test</div>;
+    const b = Math.random();
+    console.log('it works');
+    return <div>{b}</div>;
 };
 
 export default HydrationTest;
