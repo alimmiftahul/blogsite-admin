@@ -9,6 +9,7 @@ const page = () => {
     useEffect(() => {
         setClient(true);
     });
+    const b = Math.random();
     console.log('it works');
     return (
         <div className={styles.container}>
