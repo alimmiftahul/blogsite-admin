@@ -1,10 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './contact.module.css';
 import Image from 'next/image';
 
 const page = () => {
+    const [isSclient, setClient] = useState(false);
+    useEffect(() => {
+        setClient(true);
+    });
     console.log('it works');
     return (
         <div className={styles.container}>
@@ -12,6 +16,7 @@ const page = () => {
                 <Image src="/contact.png" alt="" fill className={styles.img} />
             </div>
             <div className={styles.formContainer}>
+                {isSclient && b}
                 <form action="" className={styles.form}>
                     <input type="text" placeholder="Name and surname" />
                     <input type="text" placeholder="Email Address" />
@@ -25,7 +30,7 @@ const page = () => {
                     ></textarea>
                     <button
                         className={styles.btn}
-                        onClick={() => console.log('hello world')}
+                        onClick={() => console.log('object send')}
                     >
                         Send
                     </button>
