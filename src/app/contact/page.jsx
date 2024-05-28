@@ -1,13 +1,13 @@
-'use client';
+// 'use client';
 
-import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react';
+// import dynamic from 'next/dynamic';
 import styles from './contact.module.css';
 import Image from 'next/image';
 
-const HydrationNoSSR = dynamic(() => import('@/components/hydrationTest'), {
-    ssr: false,
-});
+// const HydrationNoSSR = dynamic(() => import('@/components/hydrationTest'), {
+//     ssr: false,
+// });
 
 const page = () => {
     return (
@@ -16,7 +16,6 @@ const page = () => {
                 <Image src="/contact.png" alt="" fill className={styles.img} />
             </div>
             <div className={styles.formContainer}>
-                <HydrationNoSSR />
                 <form action="" className={styles.form}>
                     <input type="text" placeholder="Name and surname" />
                     <input type="text" placeholder="Email Address" />
