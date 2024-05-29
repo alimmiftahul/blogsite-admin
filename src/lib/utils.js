@@ -1,13 +1,14 @@
+// const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 
 const connection = {};
 
 export const connectToDB = async () => {
-    console.log(process.env.MONGO);
-    if (connection.isConnected) {
-        console.log('Using existing connection');
-        return;
-    }
+    // console.log(process.env.MONGO);
+    // if (connection.isConnected) {
+    //     console.log('Using existing connection');
+    //     return;
+    // }
 
     try {
         if (!process.env.MONGO) {
@@ -16,6 +17,7 @@ export const connectToDB = async () => {
 
         console.log('Connecting to MongoDB...');
         const db = await mongoose.connect(process.env.MONGO);
+        // console.log(db.connection);
 
         connection.isConnected = db.connections[0].readyState;
         console.log('MongoDB connected');
@@ -24,3 +26,7 @@ export const connectToDB = async () => {
         // throw new Error('MongoDB connection error');
     }
 };
+
+// module.exports = {
+//     connectToDB,
+// };

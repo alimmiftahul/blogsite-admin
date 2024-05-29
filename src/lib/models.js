@@ -1,3 +1,4 @@
+// const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
@@ -46,7 +47,8 @@ const postSchema = new mongoose.Schema(
             type: String,
         },
         userId: {
-            type: Boolean,
+            type: String,
+            required: true,
         },
         slug: {
             type: String,
@@ -58,6 +60,9 @@ const postSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
+// const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
+// const User = mongoose.models.User || mongoose.model('User', userSchema);
 
-export const User = mongoose.models.User || mongoose.model('User', userSchema);
 export const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
+export const User = mongoose.models.User || mongoose.model('User', userSchema);
+// module.exports = { Post, User };

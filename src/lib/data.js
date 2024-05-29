@@ -1,15 +1,25 @@
-// const users = [
-//     {id:1, name: 'John', body: 'johndoe@gmail.com'},
-// ]
-
 import { Post, User } from './models';
 import { connectToDB } from './utils';
 
-export const getPost = async (slug) => {
-    connectToDB();
+export const getPosts = async () => {
     try {
-        const post = await Post.find({ slug });
+        connectToDB();
+        const posts = await Post.find();
         console.log('success');
+        // console.log(posts);
+        return posts;
+    } catch (error) {
+        console.log(error);
+        throw new Error('error');
+    }
+};
+
+export const getPost = async (slug) => {
+    try {
+        connectToDB();
+        const post = await Post.findOne({ slug: slug });
+        console.log('success');
+        console.log(post);
         return post;
     } catch (error) {
         console.log(error);
@@ -17,11 +27,12 @@ export const getPost = async (slug) => {
     }
 };
 
-export const getUSer = async (userId) => {
+export const getUser = async (id) => {
     try {
         connectToDB();
-        const post = await User.findById(userId);
-        return post;
+        const user = await User.findById(id);
+        console.log('user', user);
+        return user;
     } catch (error) {
         console.log(error);
         throw new Error('error');
