@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './postCard.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import slugify from 'slugify';
 
 const PostCard = ({ post }) => {
     return (
@@ -20,7 +21,7 @@ const PostCard = ({ post }) => {
             <div className={styles.bottom}>
                 <h1 className={styles.title}>{post.title}</h1>
                 <p className={styles.description}>{post.body}</p>
-                <Link href="/blog/post/" className={styles.link}>
+                <Link href={`/blog/${post.id}`} className={styles.link}>
                     Read more
                 </Link>
             </div>

@@ -1,9 +1,21 @@
 import React from 'react';
 import styles from './singlePost.module.css';
 import Image from 'next/image';
+import PostUser from '@/components/postUser/PostUser';
 
-const SinglePostPage = ({ params }) => {
+const getData = async (slug) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}/`, {
+        cache: 'no-store',
+    });
+
+    if (!res.ok) throw new Error("Couldn't fetch data");
+    return res.json();
+};
+
+const SinglePostPage = async ({ params }) => {
     console.log({ params });
+    const { slug } = params;
+    const post = await getData(slug);
     return (
         <div className={styles.container}>
             <div className={styles.imgContainer}>
@@ -15,7 +27,7 @@ const SinglePostPage = ({ params }) => {
                 />
             </div>
             <div className={styles.textContainer}>
-                <h1 className={styles.title}>title</h1>
+                <h1 className={styles.title}>{post.title}</h1>
                 <div className={styles.details}>
                     <Image
                         src="https://images.pexels.com/photos/12887621/pexels-photo-12887621.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -24,21 +36,13 @@ const SinglePostPage = ({ params }) => {
                         height={50}
                         className={styles.avatar}
                     />
-                    <div className={styles.detailText}>
-                        <span className={styles.detailTitle}>Author</span>
-                        <span className={styles.nameAuthor}>John Doe</span>
-                    </div>
+                    <PostUser userId={post.userId} />
                     <div className={styles.detailText}>
                         <span className={styles.detailPublished}>Published</span>
-                        <span className={styles.date}>20-12-23</span>
+                        <span className={styles.date}>11-2-35</span>
                     </div>
                 </div>
-                <div className={styles.content}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-                    blanditiis dolorum deleniti commodi rem ut fuga nobis eaque culpa
-                    numquam possimus officiis cumque veritatis animi, quo excepturi
-                    perferendis consequatur dolorem.
-                </div>
+                <div className={styles.content}>{post.body}</div>
             </div>
         </div>
     );

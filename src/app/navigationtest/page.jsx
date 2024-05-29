@@ -2,23 +2,31 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const NavigationTestPage = () => {
+const NavigationTest = () => {
+    // CLIENT SIDE NAVIGATION TEST
     const router = useRouter();
-    const pathname = usePathname();
-    console.log(pathname);
+    const pathName = usePathname();
+    console.log(pathName);
+
+    const searchParams = useSearchParams();
+
+    const q = searchParams.get('q');
+    console.log(q);
 
     const handleClick = () => {
-        console.log('clicked navigation');
-        router.push('/');
+        console.log('clicked');
+        router.refresh('/');
     };
     return (
         <div>
-            <Link href="/"> Click here</Link>
-            <button onClick={handleClick}>click this</button>
+            <Link href="/" prefetch={false}>
+                click here
+            </Link>
+            <button onClick={handleClick}>Write and Redirect</button>
         </div>
     );
 };
 
-export default NavigationTestPage;
+export default NavigationTest;
