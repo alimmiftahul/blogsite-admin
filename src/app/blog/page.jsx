@@ -1,22 +1,23 @@
 import React from 'react';
 import styles from './blog.module.css';
 import PostCard from '@/components/postCards/PostCard';
-import { getPost } from '@/lib/data';
+import { getPost, getPosts } from '@/lib/data';
 
-const getData = async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        next: { revalidate: 3600 },
-    });
+// const getData = async () => {
+//     const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+//         next: { revalidate: 3600 },
+//     });
 
-    if (!res.ok) throw new Error("couldn't fetch data");
+//     if (!res.ok) throw new Error("couldn't fetch data");
 
-    return res.json();
-};
+//     return res.json();
+// };
 
 const BlogPage = async () => {
     // const posts = await getData();
-    const posts = await getPost();
+    const posts = await getPosts();
     // console.log(posts);
+    console.log(posts);
 
     return (
         <div className={styles.container}>

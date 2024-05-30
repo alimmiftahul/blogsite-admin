@@ -8,8 +8,11 @@ import { connectToDB } from '@/lib/utils';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-    title: 'Next App',
-    description: 'Next.js starter app',
+    title: {
+        default: 'blog site',
+        template: '%s',
+    },
+    description: '%s',
 };
 
 export default function RootLayout({ children }) {

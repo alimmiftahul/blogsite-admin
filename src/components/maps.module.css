@@ -1,0 +1,10 @@
+.leafletTile {
+    filter: grayscale(100%);
+}
+.mapcontainer {
+    transition: transform 0.5s ease; /* Apply transition for transform property */
+}
+
+.rotatetransition {
+    transform-origin: center; /* Set the origin of the rotation to the center */
+}
