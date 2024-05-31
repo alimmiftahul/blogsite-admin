@@ -3,19 +3,28 @@ import styles from './blog.module.css';
 import PostCard from '@/components/postCards/PostCard';
 import { getPost, getPosts } from '@/lib/data';
 
+const getData = async () => {
+    const res = await fetch('http://localhost:3000/api/blog', {
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) throw new Error(`Error fetching data: ${res.statusText}`);
+
+    return res.json();
+};
 // const getData = async () => {
-//     const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+//     const res = await fetch('http://localhost:3000/api/blog', {
 //         next: { revalidate: 3600 },
 //     });
 
-//     if (!res.ok) throw new Error("couldn't fetch data");
+//     if (!res.ok) throw new Error(`Error fetching data: ${res.statusText}`);
 
 //     return res.json();
 // };
 
 const BlogPage = async () => {
-    // const posts = await getData();
-    const posts = await getPosts();
+    const posts = await getData();
+    // const posts = await getPosts();
     // console.log(posts);
     console.log(posts);
 

@@ -1,3 +1,5 @@
+'use server';
+
 import React from 'react';
 import styles from './singlePost.module.css';
 import Image from 'next/image';
@@ -6,19 +8,20 @@ import { getPost } from '@/lib/data';
 import { User } from '@/lib/models';
 import noAvatar from './../../../../public/noAvatar.png';
 
-// const getData = async (slug) => {
-//     const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}/`, {
-//         cache: 'no-store',
-//     });
+const getData = async (slug) => {
+    const res = await fetch(`https://localhost://3000/blog/${slug}/`, {
+        cache: 'no-store',
+    });
 
-//     if (!res.ok) throw new Error("Couldn't fetch data");
-//     return res.json();
-// };
+    if (!res.ok) throw new Error("Couldn't fetch data");
+    return res.json();
+};
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getUTCDate();
     const month = date.toLocaleString('default', { month: 'long' });
+
     const year = date.getUTCFullYear();
     return `${day} ${month} ${year}`;
 };

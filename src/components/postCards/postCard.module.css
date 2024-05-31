@@ -9,7 +9,7 @@
 }
 
 .imgContainer {
-    width: 90%;
+    width: 100%;
     height: 400px;
     position: relative;
 }
@@ -20,7 +20,6 @@
 .date {
     font-size: 12px;
     transform: rotate(270deg);
-    height: fit-content;
     margin: auto;
 }
 .title {
