@@ -1,10 +1,10 @@
+'use server';
 import { connectToDB } from './utils';
-import { Post } from './models';
+import { Post, User } from './models';
 import { revalidatePath } from 'next/cache';
+import { signOut } from './auth';
 
 export const addPost = async (formData) => {
-    'use server';
-
     console.log('hello world');
 
     // const title = formData.get('title');
@@ -43,5 +43,45 @@ export const deletePost = async (formData) => {
     } catch (error) {
         console.log(error);
         return { error: error.message };
+    }
+};
+
+export const handleGithubLogin = async () => {
+    'use server';
+    await signIn('github');
+};
+
+export const handleGithubLogout = async () => {
+    'use server';
+    await signOut();
+};
+
+export const addUser = async (formData) => {
+    console.log('hello world');
+
+    const { username, email, password, confirmPassword } = Object.fromEntries(formData);
+    if (password !== confirmPassword) {
+        return 'password not match';
+    }
+
+    console.log(username, email, password);
+
+    try {
+        connectToDB();
+
+        const user = await User.findOne({ username });
+        if (user) {
+            return 'username already exist';
+        }
+        const newUser = await User({
+            username,
+            email,
+            password,
+        });
+        await newUser.save();
+        console.log('save to DB');
+    } catch (error) {
+        console.log(error);
+        throw new Error('error');
     }
 };
