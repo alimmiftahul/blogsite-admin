@@ -16,7 +16,7 @@ const login = async (credentials) => {
         return user;
     } catch (error) {
         console.log(error);
-        throw new Error('error');
+        return { error: error.message };
     }
 };
 
@@ -38,7 +38,7 @@ export const {
 
                 try {
                     const user = await login(credentials);
-                    console.log('user', user);
+                    // console.log('user', user);
                     return user;
                 } catch (error) {
                     console.error('Error signing in:', error);
@@ -50,7 +50,8 @@ export const {
     callbacks: {
         async signIn({ user, account, profile }) {
             // Check if the provider is GitHub
-            console.log('account', account.provider);
+            console.log(user, account, profile);
+            // console.log('account', account.provider);
             if (account.provider === 'github') {
                 await connectToDB(); // Ensure the database connection
 

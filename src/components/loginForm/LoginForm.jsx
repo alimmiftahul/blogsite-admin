@@ -1,21 +1,22 @@
+// LoginForm.jsx
 'use client';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Import from next/router instead of next/navigation
+import styles from './loginform.module.css';
 import { useFormState } from 'react-dom';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from './registerform.module.css';
-import { register } from '@/lib/action';
+import { login } from '@/lib/action';
 import Link from 'next/link';
 
-const RegisterForm = () => {
-    const [state, formAction] = useFormState(register, undefined);
-    console.log(state);
+const LoginForm = () => {
+    const [state, formAction] = useFormState(login, undefined);
     const router = useRouter();
+    // console.log('state : ', state);
 
     useEffect(() => {
         if (state?.success) {
-            toast.success('Registration successful! Redirecting to login...', {
+            toast.success('Login successful!', {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -24,10 +25,7 @@ const RegisterForm = () => {
                 draggable: true,
                 progress: undefined,
             });
-
-            setTimeout(() => {
-                router.push('/login');
-            }, 3000);
+            router.push('/blog'); // Redirect to /blog on successful login
         } else if (state?.error) {
             toast.error(state.error, {
                 position: 'top-right',
@@ -40,28 +38,20 @@ const RegisterForm = () => {
             });
         }
     }, [state?.success, state?.error, router]);
-
     return (
         <div>
             <form action={formAction} className={styles.form}>
                 <input type="text" placeholder="username" name="username" />
-                <input type="text" placeholder="email" name="email" />
                 <input type="password" placeholder="password" name="password" />
-                <input
-                    type="password"
-                    placeholder="confirm Password"
-                    name="confirmPassword"
-                />
-                <button>Submit</button>
-                {/* {state?.error && <p>{state.error}</p>} */}
-                <Link href="/login">
-                    Have an account? <b>Login</b>
+                <button>Login</button>
+                <Link href="/register">
+                    {" Don't have an account? "}
+                    <b>Register</b>
                 </Link>
             </form>
-
             <ToastContainer />
         </div>
     );
 };
 
-export default RegisterForm;
+export default LoginForm;

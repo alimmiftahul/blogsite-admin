@@ -94,10 +94,19 @@ export const register = async (previousState, formData) => {
     }
 };
 
-export const login = async (formData) => {
+export const login = async (previousState, formData) => {
+    'use server';
     const { username, password } = Object.fromEntries(formData);
+    let result;
+    result = await signIn('credentials', { username, password });
+    console.log('result : ', result);
 
-    try {
-        await signIn('credentials', { username: username, password: password });
-    } catch (error) {}
+    if (result.error) {
+        console.error(result.error);
+        if (result.error.message.includes('CredentialsSignin'))
+            return { error: 'inavalid username or password' };
+        return { error: result.error.message };
+    } else {
+        return { success: true };
+    }
 };
