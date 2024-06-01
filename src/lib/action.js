@@ -2,7 +2,8 @@
 import { connectToDB } from './utils';
 import { Post, User } from './models';
 import { revalidatePath } from 'next/cache';
-import { signOut } from './auth';
+import { signIn, signOut } from './auth';
+import bcrypt from 'bcryptjs';
 
 export const addPost = async (formData) => {
     console.log('hello world');
@@ -25,6 +26,8 @@ export const addPost = async (formData) => {
         });
         await newPost.save();
         console.log('save to DB');
+
+        return true;
     } catch (error) {
         console.log(error);
         throw new Error('error');
@@ -61,7 +64,7 @@ export const addUser = async (formData) => {
 
     const { username, email, password, confirmPassword } = Object.fromEntries(formData);
     if (password !== confirmPassword) {
-        return 'password not match';
+        return { error: 'password not match' };
     }
 
     console.log(username, email, password);
@@ -71,17 +74,30 @@ export const addUser = async (formData) => {
 
         const user = await User.findOne({ username });
         if (user) {
-            return 'username already exist';
+            return { error: 'username already exist' };
         }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = await User({
             username,
             email,
-            password,
+            password: hashedPassword,
         });
         await newUser.save();
         console.log('save to DB');
+
+        return { success: true };
     } catch (error) {
         console.log(error);
-        throw new Error('error');
+        return { error: error.message };
     }
+};
+
+export const login = async (formData) => {
+    const { username, password } = Object.fromEntries(formData);
+
+    try {
+        await signIn('credentials', { username: username, password: password });
+    } catch (error) {}
 };

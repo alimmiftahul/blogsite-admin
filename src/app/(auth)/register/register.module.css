@@ -4,12 +4,6 @@
     justify-content: center;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 30px;
-}
 .wrapper {
     width: 550px;
     background-color: var(--bgSoft);
@@ -18,23 +12,5 @@
     flex-direction: column;
     text-align: center;
     gap: 30px;
-    border-radius: 5px;
-}
-
-.form input {
-    padding: 20px;
-    background-color: var(--bg);
-    color: var(--textcolor);
-    border: none;
-    border-radius: 5px;
-}
-
-.form button {
-    padding: 20px;
-    cursor: pointer;
-    background-color: var(--btn);
-    color: var(--textcolor);
-    font-weight: bold;
-    border: none;
     border-radius: 5px;
 }
