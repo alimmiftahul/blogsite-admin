@@ -59,7 +59,7 @@ export const handleGithubLogout = async () => {
     await signOut();
 };
 
-export const addUser = async (formData) => {
+export const register = async (previousState, formData) => {
     console.log('hello world');
 
     const { username, email, password, confirmPassword } = Object.fromEntries(formData);

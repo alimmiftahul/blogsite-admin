@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './registerform.module.css';
+import { register } from '@/lib/action';
+import Link from 'next/link';
 
 const RegisterForm = () => {
     const [state, formAction] = useFormState(register, undefined);
@@ -41,7 +43,11 @@ const RegisterForm = () => {
                 />
                 <button>Submit</button>
                 {state?.error && <p>{state.error}</p>}
+                <Link href="/login">
+                    Have an account ? <b>Login</b>
+                </Link>
             </form>
+
             <ToastContainer />
         </div>
     );
