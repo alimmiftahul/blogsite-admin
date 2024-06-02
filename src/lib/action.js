@@ -33,7 +33,7 @@ export const addPost = async (formData) => {
         throw new Error('error');
     }
 };
-export const deletePost = async (formData) => {
+export const deletePost = async (previousState, formData) => {
     'use server';
 
     const { id } = Object.fromEntries(formData);
@@ -43,6 +43,44 @@ export const deletePost = async (formData) => {
         await Post.findByIdAndDelete(id);
         console.log('deleted to db');
         revalidatePath('/blog');
+        revalidatePath('/admin');
+    } catch (error) {
+        console.log(error);
+        return { error: error.message };
+    }
+};
+
+export const addUser = async (previousState, formData) => {
+    const { username, email, password, img } = Object.fromEntries(formData);
+
+    try {
+        connectToDB();
+        const newUser = await User({
+            username,
+            email,
+            password,
+            img,
+        });
+        await newUser.save();
+        console.log('save to DB');
+
+        return true;
+    } catch (error) {
+        console.log(error);
+        throw new Error('error');
+    }
+};
+
+export const deleteUser = async (previousState, formData) => {
+    const { id } = Object.fromEntries(formData);
+
+    try {
+        connectToDB();
+        await User.deleteMany({ userId: id });
+        await User.findByIdAndDelete(id);
+        console.log('deleted to db');
+        revalidatePath('/blog');
+        revalidatePath('/admin');
     } catch (error) {
         console.log(error);
         return { error: error.message };
