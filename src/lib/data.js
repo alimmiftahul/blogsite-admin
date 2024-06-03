@@ -38,3 +38,15 @@ export const getUser = async (id) => {
         throw new Error('error');
     }
 };
+
+export const getUsers = async () => {
+    try {
+        connectToDB();
+        const user = await User.find();
+        console.log('user', user);
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error('error');
+    }
+};

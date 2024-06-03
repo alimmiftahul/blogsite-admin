@@ -4,15 +4,16 @@ import { Post, User } from './models';
 import { revalidatePath } from 'next/cache';
 import { signIn, signOut } from './auth';
 import bcrypt from 'bcryptjs';
+import slugify from 'slugify';
 
-export const addPost = async (formData) => {
-    console.log('hello world');
-
+export const addPost = async (previousState, formData) => {
+    'use server';
     // const title = formData.get('title');
     // const desc = formData.get('desc');
-    // const slug = formData.get('slug');
+    // const userId = formData.get('userId');
 
-    const { title, desc, slug, userId } = Object.fromEntries(formData);
+    const { title, desc, userId } = Object.fromEntries(formData);
+    const slug = slugify(title, { lower: true });
 
     console.log(title, desc, slug);
 
@@ -33,7 +34,8 @@ export const addPost = async (formData) => {
         throw new Error('error');
     }
 };
-export const deletePost = async (previousState, formData) => {
+
+export const deletePost = async (formData) => {
     'use server';
 
     const { id } = Object.fromEntries(formData);
@@ -44,6 +46,7 @@ export const deletePost = async (previousState, formData) => {
         console.log('deleted to db');
         revalidatePath('/blog');
         revalidatePath('/admin');
+        console.log('delete successfully');
     } catch (error) {
         console.log(error);
         return { error: error.message };
@@ -71,7 +74,7 @@ export const addUser = async (previousState, formData) => {
     }
 };
 
-export const deleteUser = async (previousState, formData) => {
+export const deleteUser = async (formData) => {
     const { id } = Object.fromEntries(formData);
 
     try {
