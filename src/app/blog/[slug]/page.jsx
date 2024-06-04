@@ -52,13 +52,22 @@ const SinglePostPage = async ({ params }) => {
     return (
         <div className={styles.container}>
             <div className={styles.imgContainer}>
-                {post.img && <Image src={post.img} alt="" fill className={styles.img} />}
+                <Image
+                    src={
+                        post.img
+                            ? post.img
+                            : 'https://images.pexels.com/photos/733853/pexels-photo-733853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+                    }
+                    alt=""
+                    fill
+                    className={styles.img}
+                />
             </div>
             <div className={styles.textContainer}>
                 <h1 className={styles.title}>{post.title}</h1>
                 <div className={styles.details}>
                     <Image
-                        src={User.img ? User.img : noAvatar}
+                        src={User.img ? User.img : '/noavatar.png'}
                         alt=""
                         width={50}
                         height={50}

@@ -8,7 +8,7 @@ import { addUser } from '@/lib/action';
 const AdminUserForm = () => {
     const [state, formAction] = useFormState(addUser, undefined);
     return (
-        <form action={formAction}>
+        <form action={formAction} className={styles.form}>
             <h1>add user</h1>
             <input type="text" placeholder="username" name="username" />
             <input type="text" placeholder="email" name="email" />
